@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'node.dart';
 
@@ -75,7 +76,6 @@ class NodeHandler with ChangeNotifier {
   void updateConstraints(BoxConstraints newConstraint) {
     maxH = newConstraint.maxHeight;
     maxW = newConstraint.maxWidth;
-
   }
 
   List<List<dynamic>> get linesWithOpacityFactor {

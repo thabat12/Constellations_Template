@@ -26,7 +26,7 @@ class Node {
 
     if (pos == Where.top || pos == Where.bottom) {
       xpos = random.nextDouble() * 0.9 + 0.05;
-      ypos = (pos == Where.top) ? 0.05 : 0.95;
+      ypos = (pos == Where.top) ? 0.0 : 0.99;
 
 
       dx = (xpos < 0.5) ? 0.0009 : -0.0009;
@@ -37,7 +37,7 @@ class Node {
 
     } else if (pos == Where.left || pos == Where.right) {
       ypos = random.nextDouble() * 0.9 + 0.05;
-      xpos = (pos == Where.left) ? 0.05 : 0.95;
+      xpos = (pos == Where.left) ? 0.0 : 0.99;
 
       double tiltFac = random.nextDouble();
 
@@ -74,10 +74,19 @@ class Node {
   }
 
   void moveNodeFromMouseWithFactor(double mouseX, double mouseY, double distance) {
+
+    double xDiff = (mouseX - xpos);
+    double yDiff = (mouseY - ypos);
+
+
     double rad = atan( ( mouseY - ypos) /  (mouseX - xpos) );
 
     double moveX = (mouseX < xpos) ? cos(rad) * distance : -cos(rad) * distance;
-    double moveY = (mouseY < ypos) ? sin(rad) * distance : -sin(rad) * distance;
+    double moveY = (mouseY > ypos) ? sin(rad) * distance : -sin(rad) * distance;
+
+    // TODO: very strange problem, basically when the node reaches the intersection of lim^-1 -> pi/2
+    // it jumps down, but when switch the signs up then the problem occurs on the OPPOSITE side
+
 
     _updateXDiff(moveX);
     _updateYDiff(moveY);

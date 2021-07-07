@@ -66,20 +66,20 @@ class _MyCanvasState extends State<MyCanvas> with SingleTickerProviderStateMixin
     _nodeHandler = Provider.of<NodeHandler>(context);
 
     return MouseRegion(
-          onHover: (event) {
-              xpos = event.localPosition.dx;
-              ypos = event.localPosition.dy;
-              // _nodeHandler.updateWithMouse(xpos, ypos, 0.06);
-          },
-          child: Container(
-            color: Colors.black,
-            width: widget.constraints.maxWidth,
-            height: widget.constraints.maxHeight,
-            child: CustomPaint(
-              willChange: true,
-              painter: MyPainter(nodeHandler: _nodeHandler),
-            ),
-          )
+        onHover: (event) {
+          xpos = event.localPosition.dx;
+          ypos = event.localPosition.dy;
+          // _nodeHandler.updateWithMouse(xpos, ypos, 0.06);
+        },
+        child: Container(
+          color: Colors.black,
+          width: widget.constraints.maxWidth,
+          height: widget.constraints.maxHeight,
+          child: CustomPaint(
+            willChange: true,
+            painter: MyPainter(nodeHandler: _nodeHandler),
+          ),
+        )
     );
   }
 
