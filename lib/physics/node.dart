@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 
 import 'package:flutter/material.dart';
@@ -19,14 +19,14 @@ class Node {
 
   Node() {
 
-    Random random = new Random();
+    math.Random random = new math.Random();
 
     // pick the position
     Where pos = Where.values[random.nextInt(Where.values.length)];
 
     if (pos == Where.top || pos == Where.bottom) {
       xpos = random.nextDouble() * 0.9 + 0.05;
-      ypos = (pos == Where.top) ? 0.0 : 0.99;
+      ypos = (pos == Where.top) ? 0.01 : 0.99;
 
 
       dx = (xpos < 0.5) ? 0.0009 : -0.0009;
@@ -37,7 +37,7 @@ class Node {
 
     } else if (pos == Where.left || pos == Where.right) {
       ypos = random.nextDouble() * 0.9 + 0.05;
-      xpos = (pos == Where.left) ? 0.0 : 0.99;
+      xpos = (pos == Where.left) ? 0.01 : 0.99;
 
       double tiltFac = random.nextDouble();
 
@@ -62,34 +62,39 @@ class Node {
   }
 
   double calculateDistanceFromNode(Node other) {
-    return sqrt( pow(xpos - other.getX, 2) + pow(ypos - other.getY, 2));
+    return math.sqrt( math.pow(xpos - other.getX, 2) + math.pow(ypos - other.getY, 2));
   }
 
   double calculateDistanceFromMouseWithFactor(double mouseX, double mouseY) {
-    return sqrt( pow(xpos - mouseX, 2) + pow(ypos - mouseY, 2));
+    return math.sqrt( math.pow(xpos - mouseX, 2) + math.pow(ypos - mouseY, 2));
   }
 
   double calculateDistanceFromCenter() {
-    return sqrt( pow(xpos - 0.5, 2) + pow(ypos - 0.5, 2));
+    return math.sqrt(math.pow(xpos - 0.5, 2) + math.pow(ypos - 0.5, 2));
   }
 
   void moveNodeFromMouseWithFactor(double mouseX, double mouseY, double distance) {
+    double rad = math.atan( (mouseY - ypos) /  (mouseX - xpos) );
 
-    double xDiff = (mouseX - xpos);
-    double yDiff = (mouseY - ypos);
+    double xVec = distance * math.cos(rad);
+    double yVec = distance * math.sin(rad);
 
-
-    double rad = atan( ( mouseY - ypos) /  (mouseX - xpos) );
-
-    double moveX = (mouseX < xpos) ? cos(rad) * distance : -cos(rad) * distance;
-    double moveY = (mouseY > ypos) ? sin(rad) * distance : -sin(rad) * distance;
-
-    // TODO: very strange problem, basically when the node reaches the intersection of lim^-1 -> pi/2
-    // it jumps down, but when switch the signs up then the problem occurs on the OPPOSITE side
+    if ((mouseX > xpos && mouseY > ypos) || (mouseX > xpos && mouseY < ypos)) {
+      xVec *= -1;
+      yVec *= -1;
+    }
 
 
-    _updateXDiff(moveX);
-    _updateYDiff(moveY);
+
+    _updateXDiff(xVec);
+    _updateYDiff(yVec);
+
+
+
+
+
+
+    print('rad: $rad \nmouseX: $mouseX\n mouseY: $mouseY\nxVec: $xVec \nyVec: $yVec \ndistance: $distance');
 
   }
 

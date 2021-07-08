@@ -14,6 +14,7 @@ class NodeHandler with ChangeNotifier {
 
   late List<Node> nodes;
   late double maxH, maxW;
+  final double distanceFromMouseRadiusLol = 0.25;
 
   NodeHandler(int size, BoxConstraints constraints) {
 
@@ -42,7 +43,7 @@ class NodeHandler with ChangeNotifier {
 
     }
 
-    notifyListeners();
+    // notifyListeners();
 
   }
 
@@ -56,18 +57,23 @@ class NodeHandler with ChangeNotifier {
         nodes[i] = new Node();
       } else {
 
-        nodes[i].step();
-
         double dist =  nodes[i].calculateDistanceFromMouseWithFactor(mouseX / maxW, mouseY/ maxH);
 
         // input the total distance to move, the mouseX and mouseY coordinates
         if (dist < radiusFromMouse) {
+          print('contact');
           double diff = radiusFromMouse - dist;
           nodes[i].moveNodeFromMouseWithFactor(mouseX/ maxW, mouseY/ maxH, diff);
         }
 
+        nodes[i].step();
+
+        print('xpos is ${nodes[i].xpos} and ypos is ${nodes[i].ypos}');
+
       }
     }
+
+
 
     notifyListeners();
   }

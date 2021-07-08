@@ -24,6 +24,7 @@ class MyPainter extends CustomPainter with ChangeNotifier {
     ..strokeCap = StrokeCap.round;
 
 
+
     canvas.drawPoints(ui.PointMode.points, nodeHandler.getPoints, node_paint);
 
     // now iterate to draw lines for node connections

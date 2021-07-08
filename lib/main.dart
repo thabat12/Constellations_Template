@@ -35,18 +35,23 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(64, 64, 64, 1.0),
       body: ChangeNotifierProvider(
-        create: (ctx) => NodeHandler(150, BoxConstraints(maxWidth: 0.0, maxHeight: 0.0)),
+        create: (ctx) => NodeHandler(20, BoxConstraints(maxWidth: 0.0, maxHeight: 0.0)),
         child: Container(
-            padding: EdgeInsets.all(30.0),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                Provider.of<NodeHandler>(context).updateConstraints(constraints);
-                return MyCanvas(constraints);
-              },
+          // padding: EdgeInsets.all(30.0),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              Provider.of<NodeHandler>(context).updateConstraints(constraints);
+              return MyCanvas(constraints);
+            },
 
-            )
+          )
         ),
       ),
     );
   }
 }
+
+
+
+
+
