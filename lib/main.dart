@@ -33,25 +33,37 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(64, 64, 64, 1.0),
-      body: ChangeNotifierProvider(
-        create: (ctx) => NodeHandler(20, BoxConstraints(maxWidth: 0.0, maxHeight: 0.0)),
-        child: Container(
-          // padding: EdgeInsets.all(30.0),
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              Provider.of<NodeHandler>(context).updateConstraints(constraints);
-              return MyCanvas(constraints);
-            },
-
-          )
-        ),
+      backgroundColor: Colors.black,
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              ChangeNotifierProvider(
+                create: (ctx) => NodeHandler(50, BoxConstraints(maxWidth: 0.0, maxHeight: 0.0)),
+                child: Container(
+                    height: 500,
+                    child: LayoutBuilder(
+                      builder: (BuildContext context, BoxConstraints constraints) {
+                        Provider.of<NodeHandler>(context).updateConstraints(constraints);
+                        return MyCanvas(constraints);
+                      },
+                    )
+                ),
+              ),
+              Center(
+                child: Container(
+                  child: Text('Abhinav Bichal',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
 }
-
-
-
-
-

@@ -25,6 +25,7 @@ class _MyCanvasState extends State<MyCanvas> with SingleTickerProviderStateMixin
   double xpos = 0.0;
   double ypos = 0.0;
 
+
   late NodeHandler _nodeHandler;
   late Animation _animation;
 
@@ -72,7 +73,6 @@ class _MyCanvasState extends State<MyCanvas> with SingleTickerProviderStateMixin
           // _nodeHandler.updateWithMouse(xpos, ypos, 0.06);
         },
         child: Container(
-          color: Colors.black,
           width: widget.constraints.maxWidth,
           height: widget.constraints.maxHeight,
           child: CustomPaint(

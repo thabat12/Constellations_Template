@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+import 'dart:math';
 // https://api.flutter.dev/flutter/dart-ui/dart-ui-library.html
 
 import 'package:flutter/material.dart';
@@ -23,9 +24,19 @@ class MyPainter extends CustomPainter with ChangeNotifier {
     ..color = Colors.white
     ..strokeCap = StrokeCap.round;
 
+    List<Node> nodes = nodeHandler.getNodes;
+    List<Offset> nodeOffsets = nodeHandler.getPoints;
+
+    for (int i = 0; i < nodes.length; i++) {
+      canvas.drawCircle(
+            nodeOffsets[i],
+            (nodes[i].isLarge) ? 2.5 : 1.75,
+            node_paint
+      );
+    }
 
 
-    canvas.drawPoints(ui.PointMode.points, nodeHandler.getPoints, node_paint);
+    // canvas.drawPoints(ui.PointMode.points, nodeHandler.getPoints, node_paint);
 
     // now iterate to draw lines for node connections
     // so i just need a list of Offset values

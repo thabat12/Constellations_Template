@@ -61,21 +61,18 @@ class NodeHandler with ChangeNotifier {
 
         // input the total distance to move, the mouseX and mouseY coordinates
         if (dist < radiusFromMouse) {
-          print('contact');
           double diff = radiusFromMouse - dist;
           nodes[i].moveNodeFromMouseWithFactor(mouseX/ maxW, mouseY/ maxH, diff);
         }
 
         nodes[i].step();
 
-        print('xpos is ${nodes[i].xpos} and ypos is ${nodes[i].ypos}');
-
       }
     }
 
 
 
-    notifyListeners();
+    // notifyListeners();
   }
 
   // dynamic calculations with constraint resizing
@@ -104,8 +101,6 @@ class NodeHandler with ChangeNotifier {
       }
     }
 
-
-
     return connections;
   }
 
@@ -113,6 +108,10 @@ class NodeHandler with ChangeNotifier {
   // translate to canvas offset values
   List<Offset> get getPoints {
     return nodes.map((node) => Offset(node.getX * maxW, node.getY * maxH)).toList();
+  }
+
+  List<Node> get getNodes {
+    return nodes;
   }
 
 }

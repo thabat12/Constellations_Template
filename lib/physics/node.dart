@@ -26,7 +26,8 @@ class Node {
 
     if (pos == Where.top || pos == Where.bottom) {
       xpos = random.nextDouble() * 0.9 + 0.05;
-      ypos = (pos == Where.top) ? 0.01 : 0.99;
+      ypos = (pos == Where.top) ? random.nextDouble() * 0.50
+      : 0.50 + random.nextDouble() * 0.50;
 
 
       dx = (xpos < 0.5) ? 0.0009 : -0.0009;
@@ -37,7 +38,8 @@ class Node {
 
     } else if (pos == Where.left || pos == Where.right) {
       ypos = random.nextDouble() * 0.9 + 0.05;
-      xpos = (pos == Where.left) ? 0.01 : 0.99;
+      xpos = (pos == Where.left) ? random.nextDouble() * 0.50
+          : 0.50 + random.nextDouble() * 0.50;
 
       double tiltFac = random.nextDouble();
 
@@ -55,6 +57,7 @@ class Node {
 
   double get getX => xpos;
   double get getY => ypos;
+  bool get isLarge => large;
 
   void step() {
     xpos += dx;
@@ -84,19 +87,12 @@ class Node {
       yVec *= -1;
     }
 
-
-
     _updateXDiff(xVec);
     _updateYDiff(yVec);
 
-
-
-
-
-
-    print('rad: $rad \nmouseX: $mouseX\n mouseY: $mouseY\nxVec: $xVec \nyVec: $yVec \ndistance: $distance');
-
   }
+
+
 
   void _updateXDiff(double diff) {
     xpos += diff;
