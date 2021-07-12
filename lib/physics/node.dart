@@ -55,6 +55,39 @@ class Node {
 
   }
 
+  Node.fromEdge() {
+    math.Random random = new math.Random();
+
+    // pick the position
+    Where pos = Where.values[random.nextInt(Where.values.length)];
+
+    if (pos == Where.top || pos == Where.bottom) {
+      xpos = random.nextDouble() * 0.9 + 0.05;
+      ypos = (pos == Where.top) ? 0.01 : 0.99;
+
+
+      dx = (xpos < 0.5) ? 0.0009 : -0.0009;
+      dy = (ypos < 0.5) ? 0.0009 : -0.0009;
+
+      dx *= random.nextDouble();
+      dy *= random.nextDouble();
+
+    } else if (pos == Where.left || pos == Where.right) {
+      ypos = random.nextDouble() * 0.9 + 0.05;
+      xpos = (pos == Where.left) ? 0.01 : 0.99;
+
+      double tiltFac = random.nextDouble();
+
+      dx = (xpos < 0.5) ? 0.0009 : -0.0009;
+      dy = (ypos < 0.5) ? 0.0009 : -0.0009;
+
+      dx *= random.nextDouble();
+      dy *= random.nextDouble();
+    }
+
+    large = random.nextBool();
+  }
+
   double get getX => xpos;
   double get getY => ypos;
   bool get isLarge => large;
@@ -76,7 +109,13 @@ class Node {
     return math.sqrt(math.pow(xpos - 0.5, 2) + math.pow(ypos - 0.5, 2));
   }
 
-  void moveNodeFromMouseWithFactor(double mouseX, double mouseY, double distance) {
+  void moveNodeFromMouseWithFactor(
+      {required double mouseX,
+      required double mouseY,
+      required double distance,
+      double mouseXFactor = 1.0,
+      double mouseYFactor = 1.0}) {
+
     double rad = math.atan( (mouseY - ypos) /  (mouseX - xpos) );
 
     double xVec = distance * math.cos(rad);
@@ -87,8 +126,8 @@ class Node {
       yVec *= -1;
     }
 
-    _updateXDiff(xVec);
-    _updateYDiff(yVec);
+    _updateXDiff(xVec / 5);
+    _updateYDiff(yVec / 5);
 
   }
 

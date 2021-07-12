@@ -44,12 +44,12 @@ class _MyCanvasState extends State<MyCanvas> with SingleTickerProviderStateMixin
         if (status == AnimationStatus.completed) {
 
           setState(() {
-            _nodeHandler.updateWithMouse(xpos, ypos, 0.2);
+            _nodeHandler.updateWithMouse(xpos, ypos, 0.10);
           });
           _controller.reverse();
         } else if (status == AnimationStatus.dismissed) {
           setState(() {
-            _nodeHandler.updateWithMouse(xpos, ypos, 0.20);
+            _nodeHandler.updateWithMouse(xpos, ypos, 0.10);
           });
           _controller.forward();
         }

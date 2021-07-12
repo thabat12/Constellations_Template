@@ -35,7 +35,7 @@ class NodeHandler with ChangeNotifier {
 
       // recycle if out of bounds
       if (xpos < 0.0 || xpos >= 1.0 || ypos < 0.0 || ypos >= 1.0) {
-        nodes[i] = new Node();
+        nodes[i] = new Node.fromEdge();
       } else {
         nodes[i].step();
       }
@@ -54,15 +54,25 @@ class NodeHandler with ChangeNotifier {
       double ypos = nodes[i].getY;
       // recycle if out of bounds
       if (xpos < 0.0 || xpos >= 1.0 || ypos < 0.0 || ypos >= 1.0) {
-        nodes[i] = new Node();
+        nodes[i] = new Node.fromEdge();
       } else {
+
+        // TODO: FIX THE DILATION ERROR WHEN THE MAX WIDTH AND MAX HEIGHT ARE NOT EQUAL AND LEADS TO OVAL SHAPED CURSORS
+        double mouseXF = 1, mouseYF = 1;
+        if (maxH > maxW) {
+          mouseXF *= (maxH / maxW);
+        } else if (maxW > maxH) {
+          mouseYF *= (maxW / maxH);
+        }
+
+        // print('maxW: $maxW \t maxH: $maxH \t tempMouseX: $mouseXF \t tempMouseY: $mouseYF');
 
         double dist =  nodes[i].calculateDistanceFromMouseWithFactor(mouseX / maxW, mouseY/ maxH);
 
         // input the total distance to move, the mouseX and mouseY coordinates
         if (dist < radiusFromMouse) {
           double diff = radiusFromMouse - dist;
-          nodes[i].moveNodeFromMouseWithFactor(mouseX/ maxW, mouseY/ maxH, diff);
+          nodes[i].moveNodeFromMouseWithFactor(mouseX: mouseX/ maxW, mouseY: mouseY/ maxH, distance: diff);
         }
 
         nodes[i].step();
