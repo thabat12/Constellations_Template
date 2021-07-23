@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/physics/node_handler.dart';
+import 'package:flutter_website/widgets/icon_chip.dart';
+import 'package:flutter_website/widgets/section.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/canvas.dart';
@@ -36,8 +38,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    const TextStyle smallFont = TextStyle(
+    const TextStyle smallFontHeader = TextStyle(
+      letterSpacing: 0.5,
+      height: 1.3,
       color: Colors.white,
+      fontSize: 20,
     );
 
     return Scaffold(
@@ -48,8 +53,7 @@ class _HomePageState extends State<HomePage> {
         thickness: 15,
         showTrackOnHover: true,
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(
-          ),
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: [
               Stack(
@@ -57,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                   ChangeNotifierProvider(
                     create: (ctx) => NodeHandler(50, BoxConstraints(maxWidth: 0.0, maxHeight: 0.0)),
                     child: Container(
-                        height: MediaQuery.of(context).size.height * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.85,
                         child: LayoutBuilder(
                           builder: (BuildContext context, BoxConstraints constraints) {
                             Provider.of<NodeHandler>(context).updateConstraints(constraints);
@@ -72,15 +76,10 @@ class _HomePageState extends State<HomePage> {
                       child: SelectableText.rich(
                           TextSpan(
                               text: 'Hello there! I\'m\n',
-                              style: TextStyle(
-                                letterSpacing: 0.5,
-                              height: 1.3,
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+                              style: smallFontHeader,
                             children: <TextSpan>[
                               TextSpan(
-                                text: 'Abhinav Bichal',
+                                text: '[Name Here]',
                                 style: TextStyle(
                                   color: Colors.greenAccent,
                                   fontSize: 50,
@@ -100,6 +99,18 @@ class _HomePageState extends State<HomePage> {
                       ),
 
                       )
+                  ),
+                  Positioned(
+                    right: MediaQuery.of(context).size.width * 0.10,
+                    bottom: MediaQuery.of(context).size.height * 0.10,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconChip('l.png', Colors.blue),
+                        IconChip('githubWhite.png', Colors.deepPurple),
+                        IconChip('youtubeLogo.png', Colors.red),
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -136,32 +147,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 5,
-                        padding: EdgeInsets.only(
-                          left:  MediaQuery.of(context).size.width * 0.10,
-                          right:  MediaQuery.of(context).size.width * 0.10,
-                          top: 15,
-                        ),
-                        children: [
-                          MaterialButton(
-                            color: Colors.red,
-                            onPressed: () {  },
-                          ), MaterialButton(
-                            color: Colors.red,
-                            onPressed: () {  },
-                          ),
-                          MaterialButton(
-                            color: Colors.red,
-                            onPressed: () {  },
-                          )
-                        ],
-                    ),
-                  )
+                  Section(),
                 ],
               )
             ],

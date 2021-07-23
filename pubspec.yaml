@@ -24,8 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^5.0.0
-
-
+  glassmorphism: ^2.0.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -39,6 +38,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
+  assets:
+    - assets/githubWhite.png
+    - assets/l.png
+    - assets/test.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

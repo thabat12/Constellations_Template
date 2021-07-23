@@ -76,7 +76,7 @@ class Node {
       ypos = random.nextDouble() * 0.9 + 0.05;
       xpos = (pos == Where.left) ? 0.01 : 0.99;
 
-      double tiltFac = random.nextDouble();
+      // double tiltFac = random.nextDouble();
 
       dx = (xpos < 0.5) ? 0.0009 : -0.0009;
       dy = (ypos < 0.5) ? 0.0009 : -0.0009;
@@ -108,6 +108,8 @@ class Node {
   double calculateDistanceFromCenter() {
     return math.sqrt(math.pow(xpos - 0.5, 2) + math.pow(ypos - 0.5, 2));
   }
+
+  //TODO: FIX ASPECT RATIO ISSUE
 
   void moveNodeFromMouseWithFactor(
       {required double mouseX,

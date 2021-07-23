@@ -91,6 +91,12 @@ class NodeHandler with ChangeNotifier {
     maxW = newConstraint.maxWidth;
   }
 
+
+  // this will calculate each pair of connections with 1 & 2 as Offset values
+  // 3 will be the distance between these connections so we can calculate the
+  // lines or opacity factors to draw in between them. This is possible with the
+  // dynamic data type in Flutter.
+
   List<List<dynamic>> get linesWithOpacityFactor {
 
     List<List<dynamic>> connections = List.empty(growable: true);
